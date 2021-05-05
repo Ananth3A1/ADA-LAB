@@ -52,3 +52,4 @@ int gcd(int n1,int n2)
     else
         return n1;
  }
+
