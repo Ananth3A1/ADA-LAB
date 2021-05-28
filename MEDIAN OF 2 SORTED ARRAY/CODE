@@ -1,5 +1,8 @@
 #include <stdio.h>
-
+#include<stdlib.h>
+#include<omp.h>
+#include<time.h>
+double startTime,endTime;
 int getMedian(int ar1[], int ar2[], int n)
 {
 int i = 0; 
@@ -47,12 +50,14 @@ int main()
 {
 int ar1[] = {1, 12, 15, 26, 38};
 int ar2[] = {2, 13, 17, 30, 45};
+int n;
 
-printf("Median of the array after merging is %d \n\n", getMedian(ar1, ar2, 5)) ;
-printf("Time complexity of this Algorithm is O(log(n))");
+printf("Median of the array after merging is  \n %d \n\n", getMedian(ar1, ar2, 5)) ;
+printf("Time complexity of this Algorithm is O(log(n))\n");
+startTime=clock();
+getMedian(ar1,ar2,5);
+endTime = clock();
+printf("\n\nTime taken is %f\n",(((double)(endTime-startTime))/CLOCKS_PER_SEC));
 getchar();
 return 0;
 }
-
-
-
