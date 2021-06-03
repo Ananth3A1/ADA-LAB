@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<time.h>
+#include<stdlib.h>
+#include<conio.h>
+void heap(int a[],int n)
+{
+    int i,j,k,temp;
+    for(i=2;i<=n;i++)
+    {
+        j=i;
+        k=j/2;
+        temp=a[j];
+        while(k>0&&a[k]<temp)
+        {
+            a[j]=a[k];
+            j=k;
+            k=k/2;
+        }
+        a[j]=temp;
+    }
+}
+void heap1(int a[],int n)
+{
+    int i,j,k,temp;
+    for(i=n/2;i>0;i--)
+    {
+        k=i;
+        temp=a[k];
+        j=2*k;
+        while(j<=n)
+        {
+            if(j<n&&a[j]<a[j+1])
+            {
+                j=j+1;
+            }
+            if(temp<a[j])
+            {
+                a[k]=a[j];
+                k=j;
+                j=2*k;
+            }
+            else
+            {
+                break;
+            }
+        }
+        a[k]=temp;
+    }
+}
+void adjust(int a[],int n)
+{
+    int i=2,temp=a[1];
+    while(i<=n)
+    {
+        if(i<n&&a[i]<a[i+1])
+        {
+            i=i+1;
+        }
+        if(a[i]>temp)
+        {
+            a[i/2]=a[i];
+            i=i*2;
+        }
+        else
+        {
+            break;
+        }
+    }
+    a[i/2]=temp;
+}
+void main()
+{
+    int a[10000],n,i,temp;
+    double startTime,endTime;
+    printf("\nEnter the value of n ");
+    scanf("%d",&n);
+    for(i=1;i<=n;i++)
+    {
+        a[i]=rand()%1000;
+    }
+    printf("\n The random numbers generated are:\n");
+    for(i=0;i<n;i++)
+    printf("%d\t",a[i]);
+    startTime = clock();
+    heap1(a,n);
+    for(i=n;i>=2;i--)
+    {
+        temp=a[1];
+        a[1]=a[i];
+        a[i]=temp;
+        adjust(a,i-1);
+    }
+    endTime = clock();
+    printf("\nTimetaken is %f\n ",(((double)(endTime-startTime))/CLOCKS_PER_SEC));
+    getch();
+}
